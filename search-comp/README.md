@@ -1,98 +1,134 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+Aqui está seu README revisado, com correções de português e pequenos ajustes de consistência, mantendo o conteúdo e os links originais:
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+---
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# search-comp — Mini Projeto Intellux (Backend/API)
 
-## Description
+> Este diretório contém a **API** do monorepo `mini-projeto-intellux`. Na raiz do repositório você encontrará as pastas **`search-comp`** (backend) e **`search-comp-front`** (frontend). ([GitHub][1])
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+---
 
-## Project setup
+## 🧠 Funcionamento da aplicação
 
-```bash
-$ npm install
-```
+O backend expõe endpoints HTTP que o frontend consome para pesquisar **empresas** e/ou **tendências de mercado**. Em alto nível, o fluxo é:
 
-## Compile and run the project
+1. Receber a requisição do frontend (JSON).
+2. Validar e transformar os dados de entrada (DTOs + pipes). ([NestJS Documentation][2])
+3. Orquestrar integrações externas (ex.: provedor de IA) usando chaves definidas via **variáveis de ambiente**. ([NestJS Documentation][3])
+4. Retornar uma resposta **estruturada** para o cliente (ex.: `data` + `statusCode`).
 
-```bash
-# development
-$ npm run start
+> A configuração via `.env` é carregada no processo e injetada onde necessário (padrão `@nestjs/config`). ([NestJS Documentation][3])
 
-# watch mode
-$ npm run start:dev
+---
 
-# production mode
-$ npm run start:prod
-```
+## 🧰 Principais tecnologias utilizadas
 
-## Run tests
+- **Node.js** + **TypeScript**
+- **NestJS** (arquitetura modular com `Module`, `Controller`, `Service`)
+- **Validação/transformação** com **ValidationPipe**, `class-validator` e `class-transformer` (DTOs) ([NestJS Documentation][2])
+- **Configuração** via **`@nestjs/config`** e variáveis de ambiente (.env) ([NestJS Documentation][3])
+- **Pipes/Providers** (transformação, validação e injeção de dependências) ([NestJS Documentation][4])
+- **Boas práticas de deploy**: segredos em variáveis de ambiente/secret manager (sem hardcode) ([NestJS Documentation][5])
+
+---
+
+## ▶️ Como rodar o projeto localmente
+
+### 0) Pré-requisitos
+
+- **Node.js** LTS (18+ ou 20+)
+- **Git**
+
+### 1) Clonar o repositório e entrar no backend
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+git clone https://github.com/Zul1u/mini-projeto-intellux.git
+cd mini-projeto-intellux/search-comp
 ```
 
-## Deployment
+([GitHub][1])
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### 2) Instalar dependências
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm install
+# ou: yarn / pnpm install
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### 3) **Configurar variáveis de ambiente (obrigatório)**
 
-## Resources
+Copie o arquivo de exemplo e remova o sufixo:
 
-Check out a few resources that may come in handy when working with NestJS:
+```bash
+cp .env.example .env
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Abra **`.env`** e preencha os valores necessários (exemplos comuns):
 
-## Support
+```ini
+OPENAI_API_KEY=...        # chave do provedor de IA
+OPENAI_MODEL=gpt-5-mini   # modelo padrão
+PORT=8080                 # porta local da API
+CORS_ORIGIN=http://localhost:3000  # caso precise liberar o front localmente
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+> O carregamento de variáveis é feito pelo ConfigModule, acessadas via `ConfigService`. ([NestJS Documentation][3])
 
-## Stay in touch
+### 4) Subir em desenvolvimento
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+npm run start:dev
+```
 
-## License
+### 5) Testar rapidamente (exemplos)
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+```bash
+# Health (ajuste a porta conforme seu .env)
+curl http://localhost:8080/health
+
+# Exemplo de busca por empresa (corpo ilustrativo)
+curl -X POST http://localhost:8080/search/company \
+  -H "Content-Type: application/json" \
+  -d '{"companyName":"Nubank","language":"pt-BR"}'
+```
+
+> Dica: mantenha a **URL base** da API alinhada com o frontend (no front, use `NEXT_PUBLIC_API_BASE_URL`).
+
+---
+
+## 🧭 Principais decisões técnicas
+
+- **Arquitetura NestJS** (module/controller/service) para separação de responsabilidades e testabilidade.
+- **DTOs + ValidationPipe** para garantir **entradas válidas e tipadas** (evita que dados incorretos cheguem à camada de domínio). ([NestJS Documentation][2])
+- **Configuração centralizada** via `@nestjs/config`, mantendo segredos fora do código e permitindo perfis por ambiente. ([NestJS Documentation][3])
+- **Resposta padronizada** para o cliente (ex.: `{ data, statusCode }`) — facilita o consumo no frontend e a observabilidade.
+- **CORS** configurável por ambiente (liberar o front local; restringir em produção).
+- **Timeouts/retries** para chamadas externas (resiliência) e logs consistentes para troubleshooting.
+
+---
+
+## ⚠️ Limitações e próximos passos
+
+**Limitações**
+
+- **Tratamento de erros** ainda pode ser enriquecido (filtros globais, mapeamento consistente de status HTTP).
+- **Observabilidade** inicial (logs estruturados, métricas, tracing) pode ser ampliada.
+- **Testes** unitários/e2e e **CI** podem estar mínimos no começo.
+
+**Próximos passos sugeridos:**
+
+- **Documentar os endpoints** (Swagger) e publicar exemplos de requisição/resposta.
+- **Adicionar testes** (unit/e2e) + pipeline de **CI** (lint/test/build).
+- **Rate limiting** e **schema validation** mais rígida (defesa contra abuso).
+- **Padronizar a saída** de todas as rotas no formato `{ data, statusCode }`.
+- **Fallbacks/retries** para integrações externas e **timeouts** bem definidos.
+- **Adicionar uma etapa de login** antes de começar a fazer as buscas.
+- **Salvar as buscas já feitas** e criar **rota de GET** (com filtros por tipo e data da requisição) para **exibição no frontend** e **rota de DELETE**.
+
+---
+
+[1]: https://github.com/Zul1u/mini-projeto-intellux/tree/main/search-comp 'mini-projeto-intellux/search-comp at main · Zul1u/mini-projeto-intellux · GitHub'
+[2]: https://docs.nestjs.com/techniques/validation?utm_source=chatgpt.com 'Validation | NestJS - A progressive Node.js framework'
+[3]: https://docs.nestjs.com/techniques/configuration?utm_source=chatgpt.com 'Configuration | NestJS - A progressive Node.js framework'
+[4]: https://docs.nestjs.com/pipes?utm_source=chatgpt.com 'Pipes | NestJS - A progressive Node.js framework'
+[5]: https://docs.nestjs.com/deployment?utm_source=chatgpt.com 'Deployment | NestJS - A progressive Node.js framework'
