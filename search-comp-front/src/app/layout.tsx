@@ -3,7 +3,7 @@ import { Header } from "@/components/Header";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Search Comp",
+  title: "SearchComp",
   description: "Busca de empresas e tendências",
   icons: {
     icon: [{ url: "/favicon.png", sizes: "32x32", type: "image/png" }],
